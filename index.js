@@ -2,12 +2,8 @@
 const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
 const cors = require('cors');
+const { cottages, images, descs } = require('./db_fake/database');
 require('dotenv').config();
-const {
-  Cottage,
-  MImage,
-  MDescription,
-} = require('./db/models');
 
 const app = express();
 
@@ -16,7 +12,7 @@ app.use(cors());
 
 app.get('/cottages', async (req, res) => {
   try {
-    const data = await Cottage.findAll({ raw: true });
+    const data = cottages;
     res.status(200).json(data);
   } catch ({ message }) {
     res.status(500).json(message);
@@ -25,7 +21,7 @@ app.get('/cottages', async (req, res) => {
 
 app.get('/mimages', async (req, res) => {
   try {
-    const data = await MImage.findAll({ raw: true });
+    const data = images;
     res.status(200).json(data);
   } catch ({ message }) {
     res.status(500).json(message);
@@ -34,7 +30,7 @@ app.get('/mimages', async (req, res) => {
 
 app.get('/mdescriptions', async (req, res) => {
   try {
-    const data = await MDescription.findAll({ raw: true });
+    const data = descs;
     res.status(200).json(data);
   } catch ({ message }) {
     res.status(500).json(message);
